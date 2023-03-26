@@ -6,16 +6,16 @@ import pandas as pd
 app = Dash(__name__)
 
 info_section = html.Div([
-    html.H3('Bienvenue !'),
-    html.P('Ceci est un dashboard qui affiche le cours de l\'indice de volatilité du S&P 500 (aka l\'indice VIX), ainsi que des métriques liées à cette valeur.'),
-    html.P('Le graphique est mis à jour toutes les 5 minutes, et les métriques sont actualisées chaque jour à 20h.'),
+    html.H3('Welcome !'),
+    html.P('Here\'s a dashboard that displays the price of the S&P 500 volatility index (aka the VIX index), as well as metrics related to this value.'),
+    html.P('The chart is updated every 5 minutes, and the metrics are updated daily at 8:00 PM.'),
 ])
 
 app.layout = html.Div(children=[
     html.H1('Vix Dashboard'),
     html.P('By Linda HE'),
     info_section,
-    html.H3("Voici le cours de l'indice VIX au cours du temps :"),
+    html.H3("Here is the historical chart of the VIX index over time:"),
     dcc.Graph(id='vix-graph'),
     html.H3("Daily Report : "),
     html.Div(id='daily-metrics',style={
@@ -27,7 +27,6 @@ app.layout = html.Div(children=[
     ),
 ])
 
-# GRAPH
 @app.callback(Output('vix-graph', 'figure'),
               [Input('graph-update', 'n_intervals')])
 
@@ -52,7 +51,7 @@ def update_graph(n):
     }
     return fig
 
-# METRICS
+
 @app.callback(Output('daily-metrics', 'children'),
               [Input('graph-update', 'n_intervals')])
 
@@ -61,7 +60,7 @@ def update_daily_metrics(n):
     with open('metrics.txt', 'r') as f:
         met = f.read().splitlines()
         metrics_list = [i.split(": ") for i in met]
-    # create a dictionnary for the metrics
+
     metrics_dict = {}
     for i in range(len(metrics_list)):
         j=0
