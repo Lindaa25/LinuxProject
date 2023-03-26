@@ -27,6 +27,7 @@ app.layout = html.Div(children=[
     ),
 ])
 
+# GRAPH
 @app.callback(Output('vix-graph', 'figure'),
               [Input('graph-update', 'n_intervals')])
 
@@ -51,7 +52,7 @@ def update_graph(n):
     }
     return fig
 
-
+# METRICS
 @app.callback(Output('daily-metrics', 'children'),
               [Input('graph-update', 'n_intervals')])
 
@@ -60,7 +61,7 @@ def update_daily_metrics(n):
     with open('metrics.txt', 'r') as f:
         met = f.read().splitlines()
         metrics_list = [i.split(": ") for i in met]
-
+    # create a dictionnary for the metrics
     metrics_dict = {}
     for i in range(len(metrics_list)):
         j=0
