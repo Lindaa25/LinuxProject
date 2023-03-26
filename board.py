@@ -5,9 +5,17 @@ import pandas as pd
 
 app = Dash(__name__)
 
+info_section = html.Div([
+    html.H3('Bienvenue !'),
+    html.P('Ceci est un dashboard qui affiche le cours de l\'indice de volatilité du S&P 500 (aka l\'indice VIX), ainsi que des métriques liées à cette valeur.'),
+    html.P('Le graphique est mis à jour toutes les 5 minutes, et les métriques sont actualisées chaque jour à 20h.'),
+])
+
 app.layout = html.Div(children=[
     html.H1('Vix Dashboard'),
-    html.H2("Voici le cours de l'indice VIX (aka l'indice de volatilité du S&P 500) au cours d'une journée"),
+    html.P('By Linda HE'),
+    info_section,
+    html.H3("Voici le cours de l'indice VIX au cours du temps :"),
     dcc.Graph(id='vix-graph'),
     html.H3("Daily Report : "),
     html.Div(id='daily-metrics',style={
@@ -42,6 +50,7 @@ def update_graph(n):
         }
     }
     return fig
+
 
 @app.callback(Output('daily-metrics', 'children'),
               [Input('graph-update', 'n_intervals')])
