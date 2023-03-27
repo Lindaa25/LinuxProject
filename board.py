@@ -27,11 +27,11 @@ app.layout = html.Div(children=[
     ),
 ])
 
+# Graph
 @app.callback(Output('vix-graph', 'figure'),
               [Input('graph-update', 'n_intervals')])
 
 def update_graph(n):
-    # read data from text file
     # read data from text file
     value = pd.read_csv('vix.txt',sep='\t',header=None,names=['value'])
     date = pd.read_csv('vix_date.txt',sep='\t',header=None,names=['date'])
@@ -51,6 +51,7 @@ def update_graph(n):
     }
     return fig
 
+#Metrics
 
 @app.callback(Output('daily-metrics', 'children'),
               [Input('graph-update', 'n_intervals')])
